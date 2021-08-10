@@ -1,0 +1,75 @@
+:root {
+    font-size: 62,5%;
+}
+
+header{
+    display:flex!important;
+}
+footer {
+    display:flex!important;
+    align-items:baseline;
+    background-color:#F3E9F0;
+}
+
+a {
+    text-decoration: none; 
+}
+#containerCard {
+    border-radius:15px;
+}
+#card{ 
+    text-decoration: none; 
+    color:black;
+}
+ul, li {
+    list-style: none;
+}
+.headerUl {
+    display:flex;
+}
+#teddies{
+    background-color:#F3E9F0;
+    text-decoration: none; 
+} 
+
+img{
+    height:15rem;
+}
+.cardTitle{
+    display: flex; 
+    align-items: center;
+}
+h1 {
+    font-size: 3rem;
+}
+h2{
+    font-weight:700; 
+    font-size: 2rem; 
+    align-self:center;
+} 
+div {
+    font-size: 1.6rem;
+}
+#btn{
+    background-color:#E1BEE7;
+    border-radius:15px;
+    font-size: 12px; 
+    font-weight:500;
+}
+span{
+    font-weight:700; 
+    font-size: 14px; 
+    align-self:center; 
+    justify-content: end;
+}
+#imgItem {
+    width:auto;
+    height: 300px;
+}
+
+#containerProduitPanier{
+display:flex;
+flex-direction: column;
+min-width: 80vw;
+padding-left: 20rem!important;
+}
