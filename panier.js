@@ -2,13 +2,15 @@
 //Local storage
 let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
 //json.parse pour convertir donnees au format JSON qui sont dans local storage en objet js
-console.log(produitLocalStorage);
+
 
 //affichage produit panier 
 
-let produitPanier = document.querySelector("#containerProduitPanier");
+var produitPanier = document.querySelector("#containerProduitPanier");
+var tabPanier = document.querySelector(".tabPanier")
 
 //si panier vide
+
 if(produitLocalStorage === null || produitLocalStorage == 0){
 let panierVide = `
 <div class="containerPanierVide"> 
@@ -17,113 +19,126 @@ let panierVide = `
 `;
 produitPanier.innerHTML = panierVide;
 }
-//affichage produits du localStorage
-else{
-let panier = [];
-for (let i=0; i<produitLocalStorage.length; i++);
+
+//sinon affichage produits du localStorage
+else {
+    var panier = [];
+
+
+for (let i = 0; i < produitLocalStorage.length; i++){
 panier = panier + `
-<div class="recap">
-<div>Quantité 1 - ${produitLocalStorage[i].name} Couleur: ${produitLocalStorage[i].couleurProduit}</div>
-<div>${produitLocalStorage[i].price} € - <button class="btnSuppr">supprimer</button></div>
-</div>
-`
-if(i == produitLocalStorage.length){
-    produitPanier.innerHTML = panier;
+
+      <div id="nomArticlePanier" class="eltPanier">${produitLocalStorage[i].name} </div>
+      <div class="eltPanier">${produitLocalStorage[i].couleur_Produit}</div>
+      <div class="eltPanier">Qté: ${produitLocalStorage[i].quantite}</div>
+      <div class="eltPanier">Prix: ${produitLocalStorage[i].price} €</div>
+      <div class="eltPanier"><button class="btnSuppr"> supprimer </button></div>
+
+`;
+
+if(i == produitLocalStorage.length){ 
 }
+
+    tabPanier.innerHTML = panier;
+
+};
+
 
 //bouton supprimer article
 let btn_suppr = document.querySelectorAll(".btnSuppr");
 
 for (let j=0; j< btn_suppr.length; j++) {
-btnSupp[j].addEventListener ("click", (e) =>{
+btn_suppr[j].addEventListener ("click", (e) =>{
     e.preventDefault();
 
-    let btnSupprimer = produitLocalStorage[j].recupId;
+    let btnSupprimer = produitLocalStorage[j].recup_id;
 
 //methode filter pour supprimer btn cliqué
-
-produitLocalStorage = produitLocalStorage.filter( elt => elt.recupId !== btnSupprimer);
+produitLocalStorage = produitLocalStorage.filter(elt => elt.recup_id !== btnSupprimer);
 localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
 alert("Article supprimé du panier");
+//rechargement page
 window.location.href="panier.html";
-
 });
 
-}
 
 //montant total panier
 let prixTotal = [];
 
-for(let k=0; k< produitLocalStorage.length; k++){
+for(let k=0; k < produitLocalStorage.length; k++){
     let prixProduit=produitLocalStorage[k].price;
 
     prixTotal.push(prixProduit);
 
 };
+
 //methode reduce pour additionner prix
 let reducer =(accumulator, currentValue) => accumulator + currentValue;
 let sommeProduit = prixTotal.reduce(reducer, 0);
 
 let afficheTotal = `
-<div class="">Total : ${sommeProduit} € </div>
-`
+
+    <div class="prixTotal">Total: ${sommeProduit} €</div>
+
+`;
 produitPanier.insertAdjacentHTML("beforeend", afficheTotal);
 
 
-
-
 //formulaire panier
+var formulaire = () => {
+//selection dom positionnement formulaire
+   var affichageForm = document.querySelector(".formulaire");
 
-let formulaire = ()=> {
+var structForm =`
+<h2 class="h2Name"> Renseigner vos coordonnées: </h2>
+<form class="formPanier">
+    <label for="prenom" >Prénom</label><span id="prenomAlert" class="alerteInput"></span>
+    <input id ="prenom" type="text" name="prenom" required></input>
 
-    let affichageForm = document.querySelector(".formulaire");
+    <label  for="nom" >Nom</label><span id="nomAlert" class="alerteInput"></span></label>
+    <input id="nom"  type="text" name="nom" required></input>
 
+    <label for="adresse" >Adresse</label><span id="adresseAlert" class="alerteInput"></span>
+    <textarea id="adresse" name="adresse" required></textarea>          
 
-let structForm =`
-<form>
-<label for="prenom" >Prénom</label><span id="prenomAlert" class="alerteInput"></span>
-<input type="text" id="" name="" required></input>
+    <label for="CP" >Code Postal</label><span id="cpAlert" class="alerteInput"></span>
+    <input id ="CP" type="text" name="CP" size="5" required></input>
 
-<label for="nom" >Nom</label><span id="nomAlert" class="alerteInput"></span>
-<input type="text" id="nom" name="nom" required></input>
+    <label for="ville" >Ville</label><span id="villeAlert" class="alerteInput"></span>
+    <input id ="ville" type="text" name="ville" required></input>
 
-<label for="adresse" >adresse</label><span id="adresseAlert" class="alerteInput"></span>
-<textarea id="adresse" name="adresse" required></textarea>          
+    <label for="email" >E-mail</label><span id="emailAlert" class="alerteInput"></span>
+    <input id ="email" type="email"  name="email" pattern=".+@globex\.com"  placeholder="exemple@exemple.com" required></input>
 
-<label for="CP" >Code Postal</label><span id="cpAlert" class="alerteInput"></span>
-<input type="text" id="CP" name="CP" size="5" required></input>
-
-<label for="ville" >Ville</label><span id="villeAlert" class="alerteInput"></span>
-<input type="text" id="ville" name="ville" required></input>
-
-<label for="email" >E-mail</label><span id="emailAlert" class="alerteInput"></span>
-<input type="email" id="email" name="email" pattern=".+@globex\.com"  placeholder="exemple@exemple.com" required></input>
-
-<button id="envoyer" type="submit" name="envoyer" >Envoyer</button>>
+    <button id="envoyer" class="btnFont"  type="submit" name="envoyer" >Envoyer</button>
 
 </form>
 `;
-
-affichageForm.insertAdjacentHTML("afterend", structForm);
+console.log(formulaire)
+affichageForm.insertAdjacentHTML("beforeend", structForm);
+};
+//affichage formulaire page
 formulaire();
 
-// Btn envoyer form et event
+
+//Recup valeurs formulaire et le mettre dans LS
+// Btn envoyer form et addevent
 let btnEnvoyerForm = document.querySelector("#envoyer");
+
 btnEnvoyerForm.addEventListener("click", (e) =>{
     e.preventDefault();
 
 //données form dans local localStorage
-let donnesForm = {
-prenom:document.querySelector("#prenom").value ,
-nom: document.querySelector("#nom").value,
-adresse: document.querySelector("#adresse").value ,
-CP: document.querySelector("#CP").value , 
-ville: document.querySelector("#ville").value ,
-email: document.querySelector("#email").value,
+const donnesForm = {
+    prenom: document.querySelector("#prenom").value,
+    nom: document.querySelector("#nom").value,
+    adresse: document.querySelector("#adresse").value,
+    CP: document.querySelector("#CP").value, 
+    ville: document.querySelector("#ville").value,
+    email: document.querySelector("#email").value,
 }
 
-
-
+//
 
 
 //validation des donnes du formulaire avant envoi au serveur avec Regex 
@@ -134,20 +149,22 @@ return /^[A-Za-z]{2,20}$/.test(value);
 
 let regexAdresse = (value) =>{
     return /^[A-Za-z0-9\s]{10,50}$/.test(value);
-}
+};
 
 let regexCP = (value) =>{
     return /^[0-9]{5}$/.test(value);
-}
+};
 let regexVille = (value) =>{
     return /^[A-Za-z0-9\s]{10,50}$/.test(value);
-}
+};
 
 let regexEmail = (value) =>{
-    return /^[w-\.]@([\w-]+\.)+[\w-]{2,4}$/.test(value);
-}
-//fonction texte affiché lorsque erreur input formulaire 
+    return /^[\w-]{2,4}$/.test(value);
+};
 
+
+
+//fonction texte affiché lorsque erreur input formulaire 
 function messAlertVide (idHtml){
     document.querySelector(`#${idHtml}`).textContent ="";
 };
@@ -160,16 +177,22 @@ function prenomVerif () {
     let prenomForm = donnesForm.prenom;
     if(regexPrenomNomVille(prenomForm)) {
         //appel fonction alerte messagevide
+        document.querySelector("#prenomAlert").textContent="";
+        /*
         messAlertVide("prenomAlert");
+        */
         return true;
     }
     else {
         //appel fonction alerte message
+        /*
         messAlert("prenomAlert");
-        alert("Ne pas dépasser 20 caractères et aucun chiffers et symboles")
+        alert("Ne pas dépasser 20 caractères et aucun chiffres ni symboles")
+        */
+        document.querySelector("#prenomAlert").textContent="Veuiilez corriger";
         return false;
     }    
-}
+};
 
 // controle validite nom
 function nomVerif () {
@@ -183,7 +206,7 @@ function nomVerif () {
         alert("Doit être composé de 5 chiffres")
         return false;
     }    
-}
+};
 
 // controle validite adresse
 function adresseVerif () {
@@ -197,7 +220,7 @@ function adresseVerif () {
         alert("Ne doit pas contenir de caractères spéciaux ou signes de ponctuation")
         return false;
     }    
-}
+};
 
 // controle validite CP
 function CPVerif () {
@@ -211,7 +234,7 @@ function CPVerif () {
         alert("Ne pas dépasser 20 caractères et aucun chiffres et symboles")
         return false;
     }    
-}
+};
 
 // controle validite adresse
 function villeVerif () {
@@ -225,7 +248,7 @@ function villeVerif () {
         alert("Ville invalide")
         return false;
     }    
-}
+};
 // controle validite email
 function emailVerif () {
     let emailForm = donnesForm.nom;
@@ -238,35 +261,35 @@ function emailVerif () {
         alert("Email invalide")
         return false;
     }    
-}
+};
 
 
 //controle validité formulaire avant envoi
-if(prenomVerif && nomVerif && CPVerif && adresseVerif && villeVerif && emailVerif  ){
-    //objet donneesForm dans localstorage
-    localStorage.setItem("donneesForm", JSON.stringify(donnesForm))
+if(prenomVerif && nomVerif && CPVerif && adresseVerif && villeVerif && emailVerif ){
+    //objet donnesForm dans localstorage
+    localStorage.setItem("donnesForm", JSON.stringify(donnesForm))
 }
-else (
+else {
 alert("Veuillez corriger les informations du formulaire")
-);
+};
 
-//
 
+//envoyer les données du formulaire au serveur
 let envoyer = {
     produitLocalStorage,
-    donneesForm,
-}
+    donnesForm,
+};
 console.log(envoyer);
 
-//Garder info localstorage dans formulaire
-let donnesLocalStorage =localstorage.getItem("donnesForm");
 
-//Vonvertir chaine caractere en objet
+//Garder info localstorage dans formulaire
+let donnesLocalStorage = localStorage.getItem("donnesForm");
+
+//Convertir chaine caractere en objet
 let donnesLocalStorageConvert =JSON.parse(donnesLocalStorage);
 
 function remplissageFormLocalStorage () {
 document.querySelector(`#${input}`).value = donnesLocalStorageConvert[input];
-
 };
 
 remplissageFormLocalStorage("prenom");
@@ -277,21 +300,7 @@ remplissageFormLocalStorage("ville");
 remplissageFormLocalStorage("email");
 remplissageFormLocalStorage("numero");
 
-/*
-//inserer localstorage dans formulaire
-document.querySelector("#prenom").setAttribute("value", donnesLocalStorageConvert.prenom)
-document.querySelector("#nom").setAttribute("value", donnesLocalStorageConvert.nom)
-document.querySelector("#adresse").setAttribute("value", donnesLocalStorageConvert.adresse)
-document.querySelector("#CP").setAttribute("value", donnesLocalStorageConvert.CP)
-document.querySelector("#ville").setAttribute("value", donnesLocalStorageConvert.ville)
-document.querySelector("#numero").setAttribute("value", donnesLocalStorageConvert.numero)
-
-*/
-
-
-
 });
 
 };
-
 };

@@ -26,24 +26,22 @@ fetch('http://localhost:3000/api/teddies')
       
 //Création éléments HTML
 htmlItem += ` 
-<a href="item.html?id=${response[i]._id}" class="col-sm-12 col-md-4 col-lg-4 pb-3"> 
+<a id="containerTeddies" href="item.html?id=${response[i]._id}" > 
 
-  <div id="containerCard">
+  <div id="containerCard" >
 
-    <div id="card" href="" style="text-decoration: none; color:black;" ><li id="teddies" class="d-flex flex-col card border shadow p-3 mt-5 animate-pulse rounded" style="background-color:#F3E9F0 ;"> 
+    <div id="card" href=""> 
 
-      <p class="d-flex justify-content-center"><img class="img-fluid img-thumbnail mt-2 p-0 rounded h-64 w-full object-cover" src="${response[i].imageUrl}" alt="Images ours" style="height:15rem;" ></p>
+      <p class="d-flex"><img id="imgAccueil"  src="${response[i].imageUrl}" alt="Images ours"></p>
 
-      <div class="cardTitle" style="display: flex; align-items: center; ">
-
-        <h2 class="col-10 style="font-weight:700; font-size: 14px; align-self:center;"> ${response[i].name}</h2>
-
-        <span class="row  " style="font-weight:700; font-size: 14px;" style:"align-self:center; justify-content: end;"> ${response[i].price/100}€</span>
+      <div class="cardTitle">
+        <h2 class="h2Name"> ${response[i].name}</h2>
+        <span class="priceFont" > ${response[i].price/100}€</span>
       </div>
 
-      <p class="row p-3 d-inline-block text-truncate"> ${response[i].description}</p>
+      <p> ${response[i].description}</p>
 
-      <button class="row p-3 btn m-2" style="background-color:#E1BEE7;border-radius:15px;font-size: 12px; font-weight:500;" ${response[i]._id} > Voir l'article </button>
+      <button id="btnArticle" class="btnFont"  ${response[i]._id} > Voir l'article </button>
     </div>
   </div>
 </a>

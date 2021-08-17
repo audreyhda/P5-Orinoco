@@ -1,43 +1,119 @@
 :root {
     font-size: 62,5%;
 }
-
+main{
+    display:flex;
+    flex-wrap: wrap;
+}
 header{
-    display:flex!important;
+    background-color: #F3E9F0;
+    display: flex!important;
+    padding: 1%;
+    text-decoration: none!important; 
+    margin-bottom: 5%;
+    align-items: center;
+    box-shadow: 5px 5px 10px grey;
+}
+#headerPanier{
+    justify-content: space-between!important;
 }
 footer {
     display:flex!important;
-    align-items:baseline;
+    justify-content:space-around!important;
     background-color:#F3E9F0;
+    padding:2%;
+    margin-top: 5%;
+    align-items: center;
 }
-
+button , #envoyer{
+    background-color:#E1BEE7;
+    border-radius:15px;
+    font-size :12px;
+    font-weight :500;
+    padding: 2%;
+    align-self: center;
+}
+nav {
+   background-color:#F3E9F0; 
+   display: flex;
+   align-items: center; 
+   justify-content: end; 
+   font-weight:500; 
+}
 a {
-    text-decoration: none; 
+    text-decoration: none!important; 
+}
+a:hover, a:visited{
+    text-decoration: none;
+    color: black;
+}
+.h2Name, .priceFont,.headerNav, .btnFont, .prixTotal , nav{
+    font-family: Rock Salt;
+}
+#containerTeddies {
+    width: 100%;
+    justify-content: center;
 }
 #containerCard {
     border-radius:15px;
 }
 #card{ 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #F3E9F0;
     text-decoration: none; 
     color:black;
+    padding: 4%;
+    align-self: center;
+    border-radius: 15px;
 }
-ul, li {
-    list-style: none;
-}
-.headerUl {
-    display:flex;
+#containerTeddies{
+    border-radius:15px;
+    box-shadow: 10px 5px 5px grey transparent;
+    padding: 2%;
+    margin-bottom: 3%;
 }
 #teddies{
     background-color:#F3E9F0;
     text-decoration: none; 
+    margin:0;
+    width:100%;
 } 
-
+#teddies p {
+    text-overflow: ellipsis;
+}
+.btnAcheter, #btnArticle , #envoyer {
+    margin-bottom: 4%;
+    background-color:#E1BEE7;
+    border-radius:15px;
+    font-weight:500;
+}
+header  li{
+    margin-left: 20%;
+}
+ul, li {
+    list-style: none;
+    margin-right: 10%;
+}
+.headerUl {
+    display:flex;
+}
 img{
-    height:15rem;
+    height:4.5rem;
+}
+#imgItem, #imgAccueil{
+    box-shadow: 5px 5px 15px grey;
+    border-radius:15px;
+    height: 15rem;
 }
 .cardTitle{
     display: flex; 
     align-items: center;
+    padding-left: 4%;
+    padding-right: 4%;
+    justify-content:space-around;
+    width: 100%;
 }
 h1 {
     font-size: 3rem;
@@ -46,30 +122,264 @@ h2{
     font-weight:700; 
     font-size: 2rem; 
     align-self:center;
+    margin: 3%;
 } 
-div {
-    font-size: 1.6rem;
+#teddies h2 {
+    font-size: 2rem;
+    font-weight:900; 
 }
-#btn{
-    background-color:#E1BEE7;
-    border-radius:15px;
-    font-size: 12px; 
-    font-weight:500;
-}
+
 span{
     font-weight:700; 
     font-size: 14px; 
     align-self:center; 
     justify-content: end;
 }
+/* Animation button */
+/*.btnAcheter, #btnArticle , #envoyer*/
+button:link,
+button:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 40px;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all .2s;
+    position: absolute;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+button::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+button:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+button {
+    animation: moveInBottom 1s ease-out;
+    animation-fill-mode: backwards;
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+/* Media queries Tablette PAGE ACCUEIL */
+@media only screen and (min-width: 600px) {
+
+main {
+    display: flex;
+}
+#containerTeddies {
+    width: 50%;
+}
+nav {
+    font-size: 14px;
+}
+.btnAcheter, #btnArticle , #envoyer {
+    font-size:12px;
+}
+#imgItem{
+    height:20rem;
+}
+};
+
+/* Media queries Desktop PAGE ACCUEIL */
+@media only screen and (min-width: 990px) {
+
+#containerTeddies {
+    width: 25%;
+}
+
+};
+
+/* Page produit  */
+
+#container_item {
+    padding: 0!important;
+}
+#teddies{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 4%;
+}
+.containerPhotoItem{
+    display: flex;
+    flex-wrap: wrap!important;
+    justify-content: center;
+    border: white solid;
+    width: 100%;
+    padding: 4%;
+}
 #imgItem {
     width:auto;
     height: 300px;
+    margin-right: 5%;
+}
+.h2TeddiesItem{
+    width: 100%;
+}
+form {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top:2%;
+}
+.formItem label{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 2%;
+}
+.spanCouleurs, .labelItem {
+    font-weight: 900;
+}
+.btnAcheter{
+    padding: 1%;
+    margin-bottom:0;
+    margin-left: 3%;
+}
+/* Media queries Tablette* PAGE PRODUIT*/
+@media only screen and (min-width: 600px) {
+    .containerPhotoItem {
+        justify-content: space-around;
+    }
+    #card {
+        padding: 0; 
+    }
+};
+/* Media queries Desktop PAGE PRODUIT*/
+@media only screen and (min-width: 990px) {
+    #teddies{
+        flex-wrap: nowrap;
+    }
+    #teddies , .containerPhotoItem {
+        padding: 2%;
+    }
+    .containerPhotoItem , .containerTextItem{
+        width: 45%!important;
+    } 
+};
+/* Page panier */
+#containerProduitPanier{
+    display:flex;
+    flex-direction: column;
+    padding: 4%;
+    margin-bottom: 10%;
+    border: white solid;
+    width: 100%;
+}
+.tabPanier {
+    display: flex;
+    flex-wrap: wrap;
+}
+.eltPanier {
+    width: 20%;
+}
+.prixTotal {
+    font-weight: 900;
+    align-self: center;
+    margin-top: 10%;
+}
+.formulaire {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 5%;
+    font-size:12px;
+}
+.formPanier {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2%;
+}
+.formPanier span , .formPanier label, .formPanier button {
+    width: 100%;
+    margin-bottom: 1%;
+}
+.formPanier label, .formPanier button {
+    margin-top: 2%;
+}
+#mainPanier{
+    display: flex;
+    background-color: #F3E9F0;
+    padding: 4%;
+}
+.h2Name {
+    margin: 5% 0%;
+}
+#envoyer {
+    margin-top:15%;
+}
+.eltPanier {
+    margin-bottom: 1%;
+    font-size:11px;
+}
+#nomArticlePanier{
+    font-size:12px; 
+    font-weight: bold
 }
 
-#containerProduitPanier{
-display:flex;
-flex-direction: column;
-min-width: 80vw;
-padding-left: 20rem!important;
-}
+/* Media queries Tablette* PAGE PANIER*/
+@media only screen and (min-width: 600px) {
+    main{
+        flex-wrap: nowrap;
+    }
+    .eltPanier {
+        margin-bottom: 2%;
+        font-size:12px;
+    }
+    .prixTotal {
+        font-size: 14px;
+    }
+    #nomArticlePanier{
+        font-size:14px; 
+    }
+    .formulaire {
+        margin-left: 5%;
+    }
+    .formulaire{
+        width: 45%;
+    }
+    #mainPanier, #containerProduitPanier{
+        padding: 2%
+    }
+    #containerProduitPanier h2{
+        margin-top:0%;
+    }
+};
+
+/* Media queries Desktop* PAGE PANIER*/
+@media only screen and (min-width: 990px) {
+    #mainPanier {
+        width: 100%;
+    }
+    #containerProduitPanier{
+        width: 150%;
+    }
+};

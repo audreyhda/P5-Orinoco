@@ -1,8 +1,13 @@
 // Récuperation ID
-let locationSearch = window.location.search;
-let recupId = locationSearch.slice(4);
+let searchParams = new URLSearchParams(window.location.search);
+let recupId = searchParams.get('id');
 
-let _id = [];
+
+console.log(recupId);
+
+
+
+let _id = []
 
 // Fonction Fetch pour récupérer lien API format JSON et afficher dans console
 fetch(`http://localhost:3000/api/teddies/${recupId}`)
@@ -17,30 +22,30 @@ fetch(`http://localhost:3000/api/teddies/${recupId}`)
 
 //Création éléments HTML
     htmlItem_item = ` 
-      <div id="containerCard" class="col-sm-12 col-md-4 col-lg-4 pb-3  tada
-      style="   border-radius:15px;">
+      <div id="containerCard">
 
-        <div id="card" href="" style="text-decoration: none; color:black;" ><li id="teddies" class="d-flex flex-col card border shadow p-3 mt-5 animate-pulse rounded" style="background-color:#F3E9F0 ;"> 
+        <div id="card" href="" ><li id="teddies" > 
 
-          <p class="d-flex justify-content-center"><img class="img-fluid img-thumbnail mt-2 p-0 rounded h-64 w-full object-cover" src="${response.imageUrl}" id="imgItem" alt="Images ours" style="height:15rem;" ></p>
+        <div class="containerPhotoItem">
+          <p><img src="${response.imageUrl}" id="imgItem" alt="Images ours" style="height:15rem;" ></p>
 
-          <div class="cardTitle"  style="display: flex; align-items: center; ">
+          <h2 id="h2TeddiesItem" class="h2Name"> ${response.name}</h2>
+        </div>
 
-            <h2 class="col-10 style="font-weight:700; font-size: 14px; align-self:center;"> ${response.name}</h2>
-
-            <p class="row  " style="font-weight:700; font-size: 14px;" style:"align-self:center; justify-content: end;"> ${response.price/100}€</p>
-          </div>
-
+        <div class="containerTextItem">
           <p class="row p-3 d-inline-block text-truncate"> ${response.description}</p>
-          <p> Couleurs disponibles : ${response.colors}</p>
-          
-          <form>
-            <label for="couleurProduit" >Choisir :</label>
+          <p> <span class="spanCouleurs">Couleurs disponibles :</span> ${response.colors}</p>
+                    
+          <p class="priceFont"> ${response.price/100}€</p>
+
+          <form class="formItem">
+            <label class="labelItem" for="couleurProduit" >Choisir la couleur:</label>
             <select name="couleurProduit" id="couleurProduits" >
             </select>
-          </form>
   
-          <button class="btnAcheter"  class="row p-3 btn m-2" style="background-color:#E1BEE7;border-radius:15px;font-size: 12px; font-weight:500;" ${response._id} > Acheter </button>
+          <button class="btnAcheter btnFont" class="row p-3 btn m-2" ${response._id} > Acheter </button>
+          </div>
+
         </div>
       </div>
     </a>
@@ -62,15 +67,39 @@ fetch(`http://localhost:3000/api/teddies/${recupId}`)
 ;
 
 
-})
-
-
-
 // Sélection couleur
-let choixCouleur = document.querySelector("#couleurProduit");
+let choixCouleur = document.querySelector("#couleurProduits");
+/*
 
+            <label for="quantiteProduit"> Choisir la quantité: </label>
+            <select name="quantiteProduit" id="quantiteProduits"></select>
+          </form>
+
+
+//Choix quantité
+let choixQuantite = `
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+`;
+//affichage choix quantite page produit
+let afficheChoixQuantite = document.querySelector("#quantiteProduits");
+afficheChoixQuantite.innerHTML =choixQuantite;
+
+//mettre choix quantite dans variable 
+let choixQuantiteProduit = afficheChoixQuantite.value;
+*/
 // Sélection et envoi bouton acheter
 let btnAcheter = document.querySelector(".btnAcheter");
+
+console.log(btnAcheter);
 
 btnAcheter.addEventListener('click', (event)=> {
 //Pour ne pas réactualiser la page
@@ -79,15 +108,16 @@ event.preventDefault();
 let optionCouleur = choixCouleur.value;
 console.log(optionCouleur);
 
+console.log(response)
 // Récuperation valeurs formulaire
 let optionsProduit = {
-  name: recupID.name,
-  recup_Id: recupID._id,
-  couleur_Produit: couleurProduit,
-  quantite:1,
-  price: recupId.price/100,
+  name: response.name,
+  recup_Id: response._id,
+  couleur_Produit: optionCouleur,
+  quantite: 1,
+  price: response.price  /100,
 };
-
+console.log(optionsProduit)
 //Local storage
 let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
 //json.parse pour convertir donnees au format JSON qui sont dans local storage en objet js
@@ -95,9 +125,9 @@ let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
 //pop up
 let messageConf = () => {
-  if(window.confirm(`${recupID.name} option: ${couleurProduit} est dans votre panier
-  Voir le panier OK ou retour à l'accueil ANNULER`)){
-window.location.href = "panier.html";
+  if(window.confirm(`L'article ${response.name} option: ${optionCouleur} est dans votre panier
+  Veuillez appuyer sur OK pour voir le panier ou ANNULER pour retourner sur la page d'accueil`)){
+  window.location.href = "panier.html";
   }else {
     window.location.href = "index.html";
   }
@@ -114,7 +144,7 @@ else {
   produitLocalStorage.push(optionsProduit);
   localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
 }
+
+
 });
-
-
-    
+})
