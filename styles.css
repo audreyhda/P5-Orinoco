@@ -304,9 +304,6 @@ form {
     display: flex;
     flex-wrap: wrap;
 }
-.eltPanier {
-    width: 25%;
-}
 .prixTotal {
     font-weight: 900;
     align-self: center;
@@ -344,6 +341,7 @@ form {
 .eltPanier {
     margin-bottom: 1%;
     font-size:11px;
+    width: 25%;
 }
 #nomArticlePanier{
     font-size:12px; 
