@@ -1,13 +1,13 @@
 // Récuperation ID
 let searchParams = new URLSearchParams(window.location.search);
-let recupId = searchParams.get('id');
-console.log(recupId);
+let recup_Id = searchParams.get('id');
+console.log(recup_Id);
 
 
 let _id = "";
 
 // Fonction Fetch pour récupérer lien API format JSON et afficher dans console
-fetch(`http://localhost:3000/api/teddies/${recupId}`)
+fetch(`http://localhost:3000/api/teddies/${recup_Id}`)
   .then((response) => response.json())
   .then((response) => {    
     console.log(response);
@@ -58,7 +58,6 @@ let choice = document.querySelector("#couleurProduits");
     choice.appendChild(optionColor);
   });
 
-
 // Sélection couleur
 let choixCouleur = document.querySelector("#couleurProduits");
 
@@ -84,9 +83,8 @@ btnAcheter.addEventListener('click', (event)=> {
   };
   console.log(optionsProduit)
 //Local storage
-  let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
+  let produitLocalStorage = JSON.parse(localStorage.getItem("products"));
 //json.parse pour convertir donnees au format JSON qui sont dans local storage en objet js
-
 
 //pop up
   let messageConf = () => {
@@ -101,16 +99,21 @@ btnAcheter.addEventListener('click', (event)=> {
 //si deja produit dans LocalStorage
   if(produitLocalStorage){
     produitLocalStorage.push(optionsProduit);
-    localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
+    localStorage.setItem("products", JSON.stringify(produitLocalStorage));
     messageConf();
   }
 //si pas de produits dans LS
   else {
     produitLocalStorage = [];
     produitLocalStorage.push(optionsProduit);
-    localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
+    localStorage.setItem("products", JSON.stringify(produitLocalStorage));
+    messageConf();
   }
 
 
 });
 })
+// Méthode Catch pour afficher message erreur
+.catch(error => {
+  console.log(error);
+});

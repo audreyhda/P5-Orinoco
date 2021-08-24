@@ -298,11 +298,11 @@ form {
     padding: 4%;
     margin-bottom: 10%;
     border: white solid;
-
 }
 .tabPanier {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
 }
 .prixTotal {
     font-weight: 900;
@@ -330,7 +330,8 @@ form {
 #mainPanier{
     display: flex;
     background-color: #F3E9F0;
-    padding: 4%;
+    padding: 4%; 
+    font-size: 13px;
 }
 .h2Name {
     margin: 5% 0%;
@@ -345,10 +346,11 @@ form {
 }
 #nomArticlePanier{
     font-size:12px; 
-    font-weight: bold
+    font-weight: bold; 
+    width: 25%;
 }
 .containerPanierVide{
-    font-size: 19px;
+    font-size: 16px;
     font-weight: 400;
 }
 .btnSuppr{
@@ -393,4 +395,38 @@ form {
     #mainPanier {
         width: 100%;
     }
+};
+
+/* Page Confirmation */
+#orderConfirmation {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #F3E9F0;
+    text-decoration: none; 
+    color:black;
+    padding: 4%;
+    align-self: center;
+    border-radius: 15px;
+}
+.eltConf {
+    width: 100%;
+}
+.titreConf{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.titreConf h1 {
+    margin-bottom: 5%;
+}
+
+/* Media queries Tablette* PAGE PANIER*/
+@media only screen and (min-width: 600px) {
+
+};
+
+/* Media queries Desktop* PAGE PANIER*/
+@media only screen and (min-width: 990px) {
+
 };
