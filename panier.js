@@ -78,20 +78,18 @@ const formulaire = () => {
     var structForm =`
         <h2 class="h2Name"> Renseigner vos coordonnées: </h2>
         <form class="formPanier">
+        <div class= "idHtml"></div>
             <label for="prenom">Prénom</label><span id="prenomAlert" class="alerteInput"></span>
-            <input id ="firstName" type="text" name="prenom" required></input>
+            <input id ="firstName" type="text" name="firstName" required></input>
 
             <label  for="nom">Nom</label><span id="nomAlert" class="alerteInput"></span></label>
-            <input id="lastName"  type="text" name="nom" required></input>
+            <input id="lastName"  type="text" name="lastName" required></input>
 
             <label for="adresse">Adresse</label><span id="adresseAlert" class="alerteInput"></span>
-            <textarea id="address" name="adresse" required></textarea>          
-
-            <label for="CP">Code Postal</label><span id="cpAlert" class="alerteInput"></span>
-            <input id ="CP" type="text" name="CP" size="5" required></input>
+            <textarea id="address" name="address" required></textarea>          
 
             <label for="ville">Ville</label><span id="villeAlert" class="alerteInput"></span>
-            <input id ="city" type="text" name="ville" required></input>
+            <input id ="city" type="text" name="city" required></input>
 
             <label for="email">E-mail</label><span id="emailAlert" class="alerteInput"></span>
             <input id ="email" type="email"  name="email" pattern=".+@globex\.com"  placeholder="exemple@exemple.com" required></input>
@@ -106,123 +104,75 @@ const formulaire = () => {
 formulaire();
 
 //validation des donnes du formulaire avant envoi au serveur avec Regex 
-
 //expression fonction regex
 let regexPrenomNomVille = (value) => {
     return /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/.test(value);
     };
 let regexAdresse = (value) =>{
-    return /^(([a-zA-ZÀ-ÿ0-9]+[\s\-]{1}[a-zA-ZÀ-ÿ0-9]+)){1,10}$/.test(value);
+    return /^[0-9]\ ([A-Za-z]*)$/.test(value);
 };
-let regexCP = (value) =>{
-    return /^[0-9]{5}$/.test(value);
-};
-let regexVille = (value) =>{
-    return /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+)){1,10}$/.test(value);
-}; 
 let regexEmail = (value) =>{
     return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$/.test(value);
 };
 
-//fonction texte affiché lorsque erreur input formulaire 
-function messAlertVide (idHtml){
-    document.querySelector(`#${idHtml}`).textContent ="";
-};
-function messAlert (idHtml){
-    document.querySelector(`#${idHtml}`).textContent ="Veuillez remplir le champ correctement"
-};
-
 //Fonctions validité champs formulaire
-
 // controle validite prenom
-function prenomVerif () {
+function prenomVerif (contact) {
     let prenomForm = contact.firstName;
-    if(regexPrenomNomVille(prenomForm)) {
-        //appel fonction alerte messagevide
-        document.querySelector("#prenomAlert").textContent="";
-        messAlertVide("prenomAlert");
-        return true;
-    }
-    else {
-        //appel fonction alerte message
-        messAlert("#prenomAlert");
-        alert("Ne pas dépasser 20 caractères et aucun chiffres ni symboles")
-        document.querySelector("#prenomAlert").textContent="Veuiilez corriger";
-        return false;
-    }    
+if (regexPrenomNomVille(prenomForm)) {
+    return true;
+}else{
+    document.querySelector("#prenomAlert").textContent= "Veuillez corriger le champ"
+    return false;
+}
 };
 // controle validite nom
-function nomVerif () {
+function nomVerif (contact) {
     let nomForm = contact.lastName;
-    if(regexPrenomNomVille(nomForm)) {
-        messAlertVide("#nomAlert");
-        return true;
-    }
-    else {
-        messAlert("#nomAlert");
-        alert("Doit être composé de 5 chiffres")
-        return false;
-    }    
-};
+
+if (regexPrenomNomVille(nomForm)) {
+    return true;
+}else{
+    document.querySelector("#nomAlert").textContent= "Veuillez corriger le champ"
+    return false;
+}
+};  
 
 // controle validite adresse
-function adresseVerif () {
-    let adresseForm = contact.address;
-    if(regexAdresse(adresseForm)) {
-        messAlertVide("#adresseAlert");
-        return true;
-    }
-    else {
-        messAlert("#adresseAlert");
-        alert("Ne doit pas contenir de caractères spéciaux ou signes de ponctuation")
-        return false;
-    }    
+function adresseVerif (contact) {
+    let addressForm = contact.address;
+if (regexAdresse(addressForm)) {
+    return true;
+}else{
+    document.querySelector("#adresseAlert").textContent= "Veuillez corriger le champ"
+    return false;
+}
 };
 
-// controle validite CP
-function CPVerif () {
-    let CPForm = contact.CP;
-    if(regexCP(CPForm)) {
-        messAlertVide("#cpAlert");
-        return true;
-    }
-    else {
-        messAlert("#cpAlert");
-        alert("Ne pas dépasser 20 caractères et aucun chiffres et symboles")
-        return false;
-    }    
+// controle validite ville
+function villeVerif (contact) {
+    let villeForm = contact.city;
+if (regexPrenomNomVille(villeForm)) {
+    return true;
+}else{
+    document.querySelector("#villeAlert").textContent= "Veuillez corriger le champ"
+    return false;
+}
 };
 
-// controle validite adresse
-function villeVerif () {
-    let adresseForm = contact.city;
-    if(regexVille(adresseForm)) {
-        messAlertVide("#villeAlert");
-        return true;
-    }
-    else {
-        messAlert("#villeAlert");
-        alert("Ville invalide");
-        return false;
-    }    
-};
 // controle validite email
-function emailVerif () {
+function emailVerif (contact) {
     let emailForm = contact.email;
-    if(regexEmail(emailForm)) {
-        messAlertVide("#emailAlert");
-        return true;
-    }
-    else {
-        messAlert("#emailAlert");
-        alert("Email invalide")
-        return false;
-    }    
+if (regexEmail(emailForm)) {
+    return true;
+}else{
+    document.querySelector("#emailAlert").textContent= "Veuillez corriger le champ"
+    return false;
+}  
 };
 
 //Recup valeurs formulaire et le mettre dans LocalStorage
 // Btn envoyer form et addEvent
-
 let btnEnvoyerForm = document.querySelector("#envoyer");
 
 var contact ="";
@@ -232,28 +182,29 @@ btnEnvoyerForm.addEventListener("click", (e) => {
   
 //données form dans local localStorage
     contact = {
-    prenom: document.getElementById("firstName").value,
-    nom: document.getElementById("lastName").value,
-    adresse: document.getElementById("address").value,
-    CP: document.getElementById("CP").value, 
-    ville: document.getElementById("city").value,
+    firstName: document.getElementById("firstName").value,
+    lastName: document.getElementById("lastName").value,
+    address: document.getElementById("address").value,
+    city: document.getElementById("city").value,
     email: document.getElementById("email").value,
     };
 
 //controle validité formulaire avant envoi
-    if(prenomVerif && nomVerif && CPVerif && adresseVerif && villeVerif && emailVerif ){
+    if(prenomVerif(contact) && nomVerif(contact) && adresseVerif(contact) && villeVerif(contact) && emailVerif(contact) ){
     //objet contact dans localstorage
     e.preventDefault();
 
     localStorage.setItem("contact", JSON.stringify(contact))
 
+       
     //envoyer les données du formulaire au serveur
-    let envoyer = {
+    var envoyer = {
         products,
         contact,
+        orderId,
         sommeProduit
         };
-    console.log(envoyer);   
+    console.log(envoyer);
 
     let cdeEnvoyée = "Commande envoyée";
 
@@ -270,20 +221,40 @@ btnEnvoyerForm.addEventListener("click", (e) => {
         return response.json();
     })
     .then(response => {
-        localStorage.removeItem('mainPanier')
+        console.log(response)
         document.getElementById("mainPanier").innerHTML = cdeEnvoyée;
-        console.log(cdeEnvoyée);
         localStorage.setItem('contact', JSON.stringify(response.contact));
         localStorage.setItem('orderId', JSON.stringify(response.orderId));
         localStorage.setItem('sommeProduit', JSON.stringify(sommeProduit));
+        localStorage.removeItem('mainPanier');
+        localStorage.removeItem('products')
         window.location.href= "confirmation.html"
+        console.log(envoyer); 
     })
     .catch(error => {
         console.log(error);
       });
     }
     else {
-        alert("Veuillez corriger les informations du formulaire")
+        alert("Veuillez vérifier les informations du formulaire")
     }
+    console.log(response.json())
 });
 
+    /*if (prenomForm == undefined || prenomForm =="") {
+        alert("Renseignez le champ prénom")
+        document.getElementById("prenomAlert").innerHtml="Veuillez corriger";
+        return false
+    }
+    if(regexPrenomNomVille(prenomForm)) {
+        //appel fonction alerte messagevide
+        document.getElementById("prenomAlert").innerHtml="";
+        return true;
+    }
+    else {
+        //appel fonction alerte message
+        messAlert("prenomAlert");
+        alert("Ne pas dépasser 20 caractères et aucun chiffres ni symboles")
+        document.getElementById("prenomAlert").innerHtml="Veuillez corriger le prénom";
+        return false;
+    }    */

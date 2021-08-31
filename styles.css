@@ -357,6 +357,9 @@ form {
     font-weight: bold;
     margin-top: 6%;
 }
+#prenomAlert, #nomAlert , #adresseAlert, #villeAlert, #emailAlert{
+    color: red;
+}
 
 /* Media queries Tablette* PAGE PANIER*/
 @media only screen and (min-width: 600px) {
