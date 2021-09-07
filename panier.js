@@ -106,6 +106,7 @@ formulaire();
 //validation des donnes du formulaire avant envoi au serveur avec Regex 
 //expression fonction regex
 let regexPrenomNomVille = (value) => {
+    console.log(value)
     return /^(([a-zA-ZÀ-ÿ]+[\s\-]{1}[a-zA-ZÀ-ÿ]+)|([a-zA-ZÀ-ÿ]+))$/.test(value);
     };
 let regexAdresse = (value) =>{
@@ -120,9 +121,10 @@ let regexEmail = (value) =>{
 function prenomVerif (contact) {
     let prenomForm = contact.firstName;
 if (regexPrenomNomVille(prenomForm)) {
+    document.getElementById("prenomAlert").textContent= ""
     return true;
 }else{
-    document.querySelector("#prenomAlert").textContent= "Veuillez corriger le champ"
+    document.getElementById("prenomAlert").textContent= "Veuillez corriger le champ, pas de chiffres ni caractères spéciaux";
     return false;
 }
 };
@@ -131,9 +133,10 @@ function nomVerif (contact) {
     let nomForm = contact.lastName;
 
 if (regexPrenomNomVille(nomForm)) {
+    document.getElementById("nomAlert").textContent= ""
     return true;
 }else{
-    document.querySelector("#nomAlert").textContent= "Veuillez corriger le champ"
+    document.getElementById("nomAlert").textContent= "Veuillez corriger le champ, pas de chiffres ni caractères spéciaux"
     return false;
 }
 };  
@@ -142,9 +145,10 @@ if (regexPrenomNomVille(nomForm)) {
 function adresseVerif (contact) {
     let addressForm = contact.address;
 if (regexAdresse(addressForm)) {
+    document.getElementById("adresseAlert").textContent= ""
     return true;
 }else{
-    document.querySelector("#adresseAlert").textContent= "Veuillez corriger le champ"
+    document.getElementById("adresseAlert").textContent= "Veuillez corriger le champ,indiquez un numéro de voie et pas de caractères spéciaux"
     return false;
 }
 };
@@ -152,10 +156,11 @@ if (regexAdresse(addressForm)) {
 // controle validite ville
 function villeVerif (contact) {
     let villeForm = contact.city;
-if (regexPrenomNomVille(villeForm)) {
+if (regexPrenomNomVille(villeForm)) {    
+    document.getElementById("villeAlert").textContent= ""
     return true;
 }else{
-    document.querySelector("#villeAlert").textContent= "Veuillez corriger le champ"
+    document.getElementById("villeAlert").textContent= "Veuillez corriger le champ, pas de chiffres ni caractères spéciaux"
     return false;
 }
 };
@@ -164,9 +169,10 @@ if (regexPrenomNomVille(villeForm)) {
 function emailVerif (contact) {
     let emailForm = contact.email;
 if (regexEmail(emailForm)) {
+    document.getElementById("emailAlert").textContent= ""
     return true;
 }else{
-    document.querySelector("#emailAlert").textContent= "Veuillez corriger le champ"
+    document.getElementById("emailAlert").textContent= "Veuillez corriger le champ"
     return false;
 }  
 };
@@ -201,7 +207,6 @@ btnEnvoyerForm.addEventListener("click", (e) => {
     var envoyer = {
         products,
         contact,
-        orderId,
         sommeProduit
         };
     console.log(envoyer);
@@ -228,7 +233,7 @@ btnEnvoyerForm.addEventListener("click", (e) => {
         localStorage.setItem('sommeProduit', JSON.stringify(sommeProduit));
         localStorage.removeItem('mainPanier');
         localStorage.removeItem('products')
-        window.location.href= "confirmation.html"
+        window.location.href= "confirmation.html?orderId="+response.orderId
         console.log(envoyer); 
     })
     .catch(error => {
@@ -238,7 +243,7 @@ btnEnvoyerForm.addEventListener("click", (e) => {
     else {
         alert("Veuillez vérifier les informations du formulaire")
     }
-    console.log(response.json())
+
 });
 
     /*if (prenomForm == undefined || prenomForm =="") {

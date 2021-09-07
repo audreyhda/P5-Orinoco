@@ -1,5 +1,6 @@
 //Récupération des différents éléments dans le LocalStorage afin de les afficher sur la page confirmation
 let contact = localStorage.getItem("contact");
+console.log(contact);
 let orderId = localStorage.getItem("orderId");
 let sommeProduit = localStorage.getItem('sommeProduit');
 
